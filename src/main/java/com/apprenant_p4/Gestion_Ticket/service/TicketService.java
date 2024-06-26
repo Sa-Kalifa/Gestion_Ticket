@@ -1,6 +1,5 @@
 package com.apprenant_p4.Gestion_Ticket.service;
 
-import com.apprenant_p4.Gestion_Ticket.modele.Admin;
 import com.apprenant_p4.Gestion_Ticket.modele.Ticket;
 
 import java.util.List;

@@ -19,11 +19,6 @@ public class BaseConnaissance {
     private String contenu;
 
     @ManyToOne
-    private Admin admin;
-
-    @ManyToOne
-    private Apprenant apprenant;
-
-    @ManyToOne
-    private Formateur formateur;
+    @JoinColumn(name = "user_id", nullable = false)
+    private Utilisateur utilisateur;
 }

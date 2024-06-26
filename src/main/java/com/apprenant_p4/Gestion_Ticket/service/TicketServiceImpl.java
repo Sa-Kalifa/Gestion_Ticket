@@ -1,6 +1,5 @@
 package com.apprenant_p4.Gestion_Ticket.service;
 
-import com.apprenant_p4.Gestion_Ticket.modele.Apprenant;
 import com.apprenant_p4.Gestion_Ticket.modele.Ticket;
 import com.apprenant_p4.Gestion_Ticket.repository.TicketRepository;
 import lombok.AllArgsConstructor;
@@ -13,9 +12,11 @@ import java.util.List;
 
 public class TicketServiceImpl implements TicketService{
     private final TicketRepository ticketRepository;
+    private final NotificationServiceImpl notificationServiceImpl;
 
     @Override
     public Ticket creer(Ticket ticket) {
+        ticket.setEstRepondu(false);
         return ticketRepository.save(ticket);
     }
 
@@ -39,5 +40,18 @@ public class TicketServiceImpl implements TicketService{
     public String supprimer(int id) {
         ticketRepository.deleteById(id);
         return "Ticket Supprimer avec succes";
+    }
+
+    public Ticket repondreAuTicket(Integer id, String reponse) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Ticket nom Trouver"));
+
+        ticket.setEstRepondu(true);
+        ticket.setReponse(reponse);
+        ticketRepository.save(ticket);
+
+        notificationServiceImpl.envoyerNotification(ticket, "Votre Ticket a ete Repondu : " + reponse);
+        return ticket;
+
     }
 }

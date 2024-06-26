@@ -1,7 +1,5 @@
 package com.apprenant_p4.Gestion_Ticket.service;
 
-import com.apprenant_p4.Gestion_Ticket.modele.Admin;
-import com.apprenant_p4.Gestion_Ticket.modele.Apprenant;
 import com.apprenant_p4.Gestion_Ticket.modele.BaseConnaissance;
 import com.apprenant_p4.Gestion_Ticket.repository.BaseConnaissanceRepository;
 import lombok.AllArgsConstructor;

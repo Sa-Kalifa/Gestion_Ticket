@@ -1,31 +1,38 @@
 package com.apprenant_p4.Gestion_Ticket.modele;
 
+import com.apprenant_p4.Gestion_Ticket.modele.Enum.Roles;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "utilisateur")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 
 public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String nom;
+    @Column(unique = true)
     private String email;
-    private String mdp;
+    private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private Set<String> roles;
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<BaseConnaissance> baseConnaissances;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Notification> notifications;
+
 }
